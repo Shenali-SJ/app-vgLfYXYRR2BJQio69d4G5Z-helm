@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '{{.Values.microservices.mycartservice.serviceName}}'
+  labels:
+    app: '{{.Values.microservices.mycartservice.serviceName}}'
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: '{{.Values.microservices.mycartservice.serviceName}}'
+  template:
+    metadata:
+      labels:
+        app: '{{.Values.microservices.mycartservice.serviceName}}'
+    spec:
+      containers:
+      - name: '{{.Values.microservices.mycartservice.serviceName}}'
+        image: '{{.Values.microservices.mycartservice.dockerImage}}'
+        ports:
+        - containerPort: 0
+        env: []
+        resources:
+          requests:
+            cpu: 100m
+            memory: 500Mi
+          limits:
+            cpu: '{{.Values.microservices.mycartservice.maxCPU}}'
+            memory: '{{.Values.microservices.mycartservice.maxMemory}}'

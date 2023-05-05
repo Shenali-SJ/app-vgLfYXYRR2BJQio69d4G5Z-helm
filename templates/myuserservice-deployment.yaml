@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '{{.Values.microservices.myuserservice.serviceName}}'
+  labels:
+    app: '{{.Values.microservices.myuserservice.serviceName}}'
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: '{{.Values.microservices.myuserservice.serviceName}}'
+  template:
+    metadata:
+      labels:
+        app: '{{.Values.microservices.myuserservice.serviceName}}'
+    spec:
+      containers:
+      - name: '{{.Values.microservices.myuserservice.serviceName}}'
+        image: '{{.Values.microservices.myuserservice.dockerImage}}'
+        ports:
+        - containerPort: 0
+        env: []
+        resources:
+          requests:
+            cpu: 100m
+            memory: 500Mi
+          limits:
+            cpu: '{{.Values.microservices.myuserservice.maxCPU}}'
+            memory: '{{.Values.microservices.myuserservice.maxMemory}}'
